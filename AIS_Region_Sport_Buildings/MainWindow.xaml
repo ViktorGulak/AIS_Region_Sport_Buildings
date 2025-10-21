@@ -1,0 +1,31 @@
+﻿<Window x:Class="AIS_Region_Sport_Buildings.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AIS_Region_Sport_Buildings"
+        mc:Ignorable="d"
+        Title="Меню" Height="400" Width="400" ResizeMode="NoResize">
+    <Grid Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}">
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Button Margin="25" Grid.Row="0" Name="RefBooksBtn" Content="Справочники" 
+                FontSize="20" 
+                Style="{StaticResource PrimaryBtn}"
+                Click="RefBooksBtn_Click">
+        </Button>
+        <Button Margin="25" Grid.Row="1" Name="TablesBtn" Content="Таблицы" 
+                FontSize="20" 
+                Style="{StaticResource PrimaryBtn}"
+                Click="TablesBtn_Click">
+        </Button>
+        <Button Margin="25" Grid.Row="2" Name="ReportsBtn" Content="Отчёты" 
+                FontSize="20" 
+                Style="{StaticResource PrimaryBtn}"
+                Click="ReportsBtn_Click">
+        </Button>
+    </Grid>
+</Window>

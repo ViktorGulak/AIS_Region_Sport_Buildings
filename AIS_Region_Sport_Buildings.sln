@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.36422.26
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIS_Region_Sport_Buildings", "AIS_Region_Sport_Buildings\AIS_Region_Sport_Buildings.csproj", "{D4DA1C73-E10A-4141-B586-FF1E885D2E13}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D4DA1C73-E10A-4141-B586-FF1E885D2E13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4DA1C73-E10A-4141-B586-FF1E885D2E13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4DA1C73-E10A-4141-B586-FF1E885D2E13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4DA1C73-E10A-4141-B586-FF1E885D2E13}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FD3EAEF1-69B4-4C88-B06A-E17DA80E2AC5}
+	EndGlobalSection
+EndGlobal

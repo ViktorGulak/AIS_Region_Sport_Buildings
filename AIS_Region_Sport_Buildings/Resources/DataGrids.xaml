@@ -1,0 +1,110 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Стиль для заголовков колонок DataGrid -->
+    <Style x:Key="PrimaryDataGridColumnHeader" TargetType="DataGridColumnHeader">
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Background" Value="#6610f2"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Padding" Value="10,5"/>
+        <Setter Property="BorderThickness" Value="0,0,1,1"/>
+        <Setter Property="BorderBrush" Value="#FFE0E0E0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+
+    <!-- Стиль для содержимого ячеек TextBlock -->
+    <Style x:Key="PrimaryDataGridCellText" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="#FF212121"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="10,5"/>
+        <Setter Property="TextWrapping" Value="NoWrap"/>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+    </Style>
+
+    <!-- Стиль для самих ячеек DataGrid -->
+    <Style x:Key="PrimaryDataGridCell" TargetType="DataGridCell">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="#FFE0E0E0"/>
+        <Setter Property="BorderThickness" Value="0,0,1,1"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <!-- Курсор pointer -->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="DataGridCell">
+                    <Border Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        Padding="{TemplateBinding Padding}">
+                        <ContentPresenter VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <!-- Выделение при выборе -->
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="#FFE3F2FD"/>
+                <Setter Property="BorderBrush" Value="#FF2196F3"/>
+                <Setter Property="Foreground" Value="#FF1976D2"/>
+            </Trigger>
+
+            <!-- Эффект при наведении -->
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#FFF5F5F5"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Стиль для строк DataGrid -->
+    <Style x:Key="PrimaryDataGridRow" TargetType="DataGridRow">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Style.Triggers>
+            <!-- Выделение строки при выборе -->
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="#FFE3F2FD"/>
+                <Setter Property="BorderBrush" Value="#FF2196F3"/>
+                <Setter Property="Foreground" Value="#FF1976D2"/>
+            </Trigger>
+
+            <!-- Эффект при наведении на строку -->
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#FFF5F5F5"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Основной стиль для DataGrid -->
+    <Style x:Key="PrimaryDataGrid" TargetType="DataGrid">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="BorderBrush" Value="#FFCCCCCC"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="RowBackground" Value="White"/>
+        <Setter Property="AlternatingRowBackground" Value="#FFF5F5F5"/>
+        <Setter Property="HorizontalGridLinesBrush" Value="#FFE0E0E0"/>
+        <Setter Property="VerticalGridLinesBrush" Value="#FFE0E0E0"/>
+        <Setter Property="HeadersVisibility" Value="Column"/>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+        <Setter Property="ScrollViewer.PanningMode" Value="Both"/>
+        <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+        <Setter Property="AutoGenerateColumns" Value="False"/>
+        <Setter Property="CanUserAddRows" Value="False"/>
+        <Setter Property="CanUserDeleteRows" Value="False"/>
+        <Setter Property="CanUserReorderColumns" Value="False"/>
+        <Setter Property="CanUserResizeColumns" Value="True"/>
+        <Setter Property="CanUserResizeRows" Value="False"/>
+        <Setter Property="CanUserSortColumns" Value="True"/>
+        <Setter Property="GridLinesVisibility" Value="All"/>
+        <Setter Property="SelectionMode" Value="Extended"/>
+        <Setter Property="SelectionUnit" Value="FullRow"/>
+        <Setter Property="RowStyle" Value="{StaticResource PrimaryDataGridRow}"/>
+    </Style>
+</ResourceDictionary>
