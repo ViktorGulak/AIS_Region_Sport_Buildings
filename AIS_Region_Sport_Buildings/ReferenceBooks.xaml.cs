@@ -18,13 +18,15 @@ namespace AIS_Region_Sport_Buildings
 
         private EventTypeService _eventTypeService = new EventTypeService();
         private EventType _selectedEventType;
-        public ReferenceBooks()
+        public ReferenceBooks(int selectedTabIdx = 0)
         {
             InitializeComponent();
 
             LoadLocalityTypes();
             LoadBuildingTypes();
             LoadEventTypes();
+
+            TabMenu.SelectedIndex = selectedTabIdx;
         }
 
         private void LoadLocalityTypes()

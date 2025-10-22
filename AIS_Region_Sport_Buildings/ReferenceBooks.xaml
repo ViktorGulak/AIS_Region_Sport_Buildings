@@ -12,7 +12,7 @@
             <ColumnDefinition Width="17*"/>
             <ColumnDefinition Width="78*"/>
         </Grid.ColumnDefinitions>
-        <TabControl Grid.Row="0"
+        <TabControl Grid.Row="0" Name="TabMenu"
                 HorizontalAlignment="Stretch" 
                 VerticalAlignment="Stretch"
                 Margin="5,5,4.6,5.4" Grid.ColumnSpan="3">

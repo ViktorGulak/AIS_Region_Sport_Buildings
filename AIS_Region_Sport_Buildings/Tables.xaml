@@ -7,7 +7,12 @@
         mc:Ignorable="d"
         Title="Таблицы" Height="743.928" Width="1100" WindowState="Maximized">
     <Grid>
-        <Grid Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="438*"/>
+            <ColumnDefinition Width="411*"/>
+            <ColumnDefinition Width="245*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}" Grid.ColumnSpan="3" Margin="0,0,-0.4,0.4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="698*"/>
                 <ColumnDefinition Width="17*"/>
@@ -40,7 +45,7 @@
                                 <!-- Название организации (на всю ширину) -->
                                 <StackPanel Margin="0,5">
                                     <Label Content="Название организации" FontSize="16" Foreground="#FF7B16B6"/>
-                                    <TextBox Style="{StaticResource PrimaryTB}" />
+                                    <TextBox Style="{StaticResource PrimaryTB}" Name="OrgTitleTB" />
                                 </StackPanel>
 
                                 <!-- 4 TextBox в 2 колонки -->
@@ -58,23 +63,23 @@
                                     <!-- Левый столбец -->
                                     <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,5">
                                         <Label Content="Номер" FontSize="16" Foreground="#FF7B16B6"/>
-                                        <TextBox Style="{StaticResource PrimaryTB}"/>
+                                        <TextBox Style="{StaticResource PrimaryTB}" Name="OrgNumberTB"/>
                                     </StackPanel>
 
                                     <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,5">
                                         <Label Content="Телефон" FontSize="16" Foreground="#FF7B16B6"/>
-                                        <TextBox Style="{StaticResource PrimaryTB}"/>
+                                        <TextBox Style="{StaticResource PrimaryTB}" Name="OrgPhoneTB"/>
                                     </StackPanel>
 
                                     <!-- Правый столбец -->
                                     <StackPanel Grid.Row="0" Grid.Column="2" Margin="0,5">
                                         <Label Content="Краткое название" FontSize="16" Foreground="#FF7B16B6"/>
-                                        <TextBox Style="{StaticResource PrimaryTB}" />
+                                        <TextBox Style="{StaticResource PrimaryTB}" Name="OrgShortTB"/>
                                     </StackPanel>
 
                                     <StackPanel Grid.Row="1" Grid.Column="2" Margin="0,5">
                                         <Label Content="Эл. почта" FontSize="16" Foreground="#FF7B16B6"/>
-                                        <TextBox Style="{StaticResource PrimaryTB}"/>
+                                        <TextBox Style="{StaticResource PrimaryTB}" Name="OrgEmailTB"/>
                                     </StackPanel>
                                 </Grid>
                             </StackPanel>
@@ -97,7 +102,7 @@
                                         </Grid.ColumnDefinitions>
 
                                         <ComboBox Grid.Column="0" Style="{StaticResource PrimaryCB}" Name="LocTypeCB"/>
-                                        <Button Grid.Column="2" Content="+" Padding="10,5" FontSize="18" FontWeight="ExtraBold"  Style="{StaticResource PrimaryBtn}"/>
+                                        <Button Name="OpenRefBookBtn" Grid.Column="2" Content="+" Padding="10,5" FontSize="18" FontWeight="ExtraBold" ToolTip="Добавить новый тип"  Style="{StaticResource PrimaryBtn}" Margin="0.2,0,0.4,-0.4" Click="OpenRefBookBtn_Click"/>
                                     </Grid>
                                 </StackPanel>
 
@@ -116,23 +121,23 @@
                                     <!-- Левый столбец -->
                                     <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,5">
                                         <Label Content="Населенный пункт" FontSize="16" Foreground="#FF7B16B6"/>
-                                        <TextBox Style="{StaticResource PrimaryTB}"/>
+                                        <TextBox Style="{StaticResource PrimaryTB}" Name="LocNameTB"/>
                                     </StackPanel>
 
                                     <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,5">
                                         <Label Content="Номер здания" FontSize="16" Foreground="#FF7B16B6"/>
-                                        <TextBox Style="{StaticResource PrimaryTB}"/>
+                                        <TextBox Style="{StaticResource PrimaryTB}" Name="BldNumberTB"/>
                                     </StackPanel>
 
                                     <!-- Правый столбец -->
                                     <StackPanel Grid.Row="0" Grid.Column="2" Margin="0,5">
                                         <Label Content="Улица" FontSize="16" Foreground="#FF7B16B6"/>
-                                        <TextBox Style="{StaticResource PrimaryTB}" />
+                                        <TextBox Style="{StaticResource PrimaryTB}" Name="LocStreetTB"/>
                                     </StackPanel>
 
                                     <StackPanel Grid.Row="1" Grid.Column="2" Margin="0,5">
                                         <Label Content="Номер входа" FontSize="16" Foreground="#FF7B16B6"/>
-                                        <TextBox Style="{StaticResource PrimaryTB}"/>
+                                        <TextBox Style="{StaticResource PrimaryTB}" Name="EntrNumberTB"/>
                                     </StackPanel>
                                 </Grid>
                             </StackPanel>
@@ -142,29 +147,29 @@
                         <StackPanel Grid.Row="2" Grid.Column="0" Margin="5">
                             <UniformGrid Columns="2" Margin="0,10">
                                 <Button Content="Добавить"
-                                Name="AddLocTypeBtn"
+                                Name="AddOrgBtn"
                                 Style="{StaticResource PrimaryBtn}"
                                 Margin="5"
                                 Padding="15,7" 
-                                FontSize="14"/>
+                                FontSize="14" Click="AddOrgBtn_Click"/>
                                 <Button Content="Изменить"
-                                Name="UpdateLocTypeBtn"
+                                Name="UpdateOrgBtn"
                                 Style="{StaticResource SuccessBtn}"
                                 Margin="5"
                                 Padding="15,7" 
-                                FontSize="14"/>
+                                FontSize="14" Click="UpdateOrgBtn_Click"/>
                                 <Button Content="Очистить"
-                                Name="ClearLocTypeBtn"
+                                Name="ClearTextFildsBtn"
                                 Style="{StaticResource WarningBtn}"
                                 Margin="5"
                                 Padding="15,7" 
-                                FontSize="14" />
+                                FontSize="14" Click="ClearTextFieldsBtn_Click" />
                                 <Button Content="Удалить"
-                                Name="DeleteLocTypeBtn"
+                                Name="DeleteOrgBtn"
                                 Style="{StaticResource DangerBtn}"
                                 Margin="5"
                                 Padding="15,7" 
-                                FontSize="14"/>
+                                FontSize="14" Click="DeleteOrgBtn_Click"/>
                             </UniformGrid>
                         </StackPanel>
 

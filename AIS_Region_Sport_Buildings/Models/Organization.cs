@@ -23,6 +23,7 @@ namespace AIS_Region_Sport_Buildings.Models
         public string EntranceNumber { get; set; }
 
         public string LocalityType { get; set; }
+        public int LocalityTypeId { get; set; }
 
         // Вычисляемое свойство для полного адреса
         public string FullAddress
