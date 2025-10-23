@@ -32,17 +32,22 @@ namespace AIS_Region_Sport_Buildings
             ReferenceBooks refBooksWindow = new ReferenceBooks();
             refBooksWindow.Show();
         }
-
-        private void TablesBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Tables tablesWindow = new Tables();
-            tablesWindow.Show();
-        }
-
         private void ReportsBtn_Click(object sender, RoutedEventArgs e)
         {
             Reports reportsWindow = new Reports();
             reportsWindow.Show();
+        }
+
+        private void OrgBtn_Click(object sender, RoutedEventArgs e)
+        {
+            OrgWindow tablesWindow = new OrgWindow();
+            tablesWindow.Show();
+        }
+
+        private void SpBldBtn_Click(object sender, RoutedEventArgs e)
+        {
+            SpBldWindow spBldWindow = new SpBldWindow();
+            spBldWindow.Show();
         }
     }
 }

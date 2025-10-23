@@ -1,0 +1,266 @@
+﻿<Window x:Class="AIS_Region_Sport_Buildings.SpBldWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AIS_Region_Sport_Buildings"
+        mc:Ignorable="d"
+        Title="Спортивные сооружения" Height="897.559" Width="1100" WindowState="Maximized">
+    <Grid Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <!-- Все пространство для ScrollViewer -->
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="400"/>
+            <ColumnDefinition Width="*"/>
+            <!-- DataGrid займет всё оставшееся пространство -->
+        </Grid.ColumnDefinitions>
+
+        <!-- Левая панель с GroupBox в ScrollViewer -->
+        <ScrollViewer Grid.Row="0" Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <StackPanel>
+                <!-- Первый GroupBox с данными -->
+                <GroupBox Header="Основные данные" Margin="5" FontSize="16" Foreground="#FF7B16B6" BorderBrush="#FF7B16B6">
+                    <StackPanel Margin="10">
+                        <!-- Название организации (на всю ширину) -->
+                        <StackPanel Margin="0,5">
+                            <Label Content="Название сооружения" FontSize="16" Foreground="#FF7B16B6"/>
+                            <TextBox Style="{StaticResource PrimaryTB}" Name="SpBldTitleTB" />
+                        </StackPanel>
+
+                        <!-- Первый ComboBox Тип сооружения -->
+                        <StackPanel Margin="0,5">
+                            <Label Content="Тип сооружения" FontSize="16" Foreground="#FF7B16B6"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <!-- ComboBox занимает всё доступное пространство -->
+                                    <ColumnDefinition Width="10"/>
+                                    <!-- Отступ -->
+                                    <ColumnDefinition Width="Auto"/>
+                                    <!-- Кнопка по размеру контента -->
+                                </Grid.ColumnDefinitions>
+
+                                <ComboBox Name="SpBldTypeCB" 
+                                      Style="{StaticResource PrimaryCB}"
+                                      IsEditable="True"
+                                      TextSearch.TextPath="Title" 
+                                      StaysOpenOnEdit="True"
+                                      IsTextSearchEnabled="True"
+                                      IsTextSearchCaseSensitive="False"/>
+                                <Button Name="AddSpBlgTypeBtn" Grid.Column="2" Content="+" Padding="10,5" FontSize="18" FontWeight="ExtraBold" ToolTip="Добавить новый тип сооружения" Style="{StaticResource PrimaryBtn}" />
+                            </Grid>
+                        </StackPanel>
+
+                        <!-- 4 TextBox в 2 колонки -->
+                        <Grid Margin="0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Левый столбец -->
+                            <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,5">
+                                <Label Content="Номер" FontSize="16" Foreground="#FF7B16B6"/>
+                                <TextBox Style="{StaticResource PrimaryTB}" Name="SpBldNumberTB"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,5">
+                                <Label Content="Площадь арены" FontSize="16" Foreground="#FF7B16B6"/>
+                                <TextBox Style="{StaticResource PrimaryTB}" Name="SpBldAreaTB"/>
+                            </StackPanel>
+
+                            <!-- Правый столбец -->
+                            <StackPanel Grid.Row="0" Grid.Column="2" Margin="0,5">
+                                <Label Content="Краткое название" FontSize="16" Foreground="#FF7B16B6"/>
+                                <TextBox Style="{StaticResource PrimaryTB}" Name="SpBldShortTB"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="1" Grid.Column="2" Margin="0,5">
+                                <Label Content="Вместимость" FontSize="16" Foreground="#FF7B16B6"/>
+                                <TextBox Style="{StaticResource PrimaryTB}" Name="SpBldCapacityTB"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- Второй ComboBox в конце GroupBox -->
+                        <StackPanel Margin="0,10">
+                            <Label Content="Организация - информатор" FontSize="16" Foreground="#FF7B16B6"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <!-- ComboBox занимает всё доступное пространство -->
+                                    <ColumnDefinition Width="10"/>
+                                    <!-- Отступ -->
+                                    <ColumnDefinition Width="Auto"/>
+                                    <!-- Кнопка по размеру контента -->
+                                </Grid.ColumnDefinitions>
+
+                                <ComboBox Name="OrgCB" 
+                                      Style="{StaticResource PrimaryCB}"
+                                      IsEditable="True"
+                                      TextSearch.TextPath="Name" 
+                                      StaysOpenOnEdit="True"
+                                      IsTextSearchEnabled="True"
+                                      IsTextSearchCaseSensitive="False"/>
+                                <Button Name="AddOrganizationBtn" Grid.Column="2" Content="+" Padding="10,5" FontSize="18" FontWeight="ExtraBold" ToolTip="Добавить новый статус" Style="{StaticResource PrimaryBtn}" />
+                            </Grid>
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Второй GroupBox с адресом -->
+                <GroupBox Header="Адресные данные" Margin="5" FontSize="16" Foreground="#FF7B16B6" BorderBrush="#FF7B16B6">
+                    <StackPanel Margin="10">
+                        <!-- ComboBox на всю ширину -->
+                        <StackPanel Margin="0,5">
+                            <Label Content="Тип населенного пункта" FontSize="16" Foreground="#FF7B16B6"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <!-- ComboBox занимает всё доступное пространство -->
+                                    <ColumnDefinition Width="10"/>
+                                    <!-- Отступ -->
+                                    <ColumnDefinition Width="Auto"/>
+                                    <!-- Кнопка по размеру контента -->
+                                </Grid.ColumnDefinitions>
+
+                                <ComboBox Name="LocTypeCB" 
+                                Style="{StaticResource PrimaryCB}"
+                                IsEditable="True"
+                                TextSearch.TextPath="Title" 
+                                StaysOpenOnEdit="True"
+                                IsTextSearchEnabled="True"
+                                IsTextSearchCaseSensitive="False"/>
+                                <Button Name="OpenRefBookBtn" Grid.Column="2" Content="+" Padding="10,5" FontSize="18" FontWeight="ExtraBold" ToolTip="Добавить новый тип" Style="{StaticResource PrimaryBtn}" Margin="0.2,0,0.4,-0.4" />
+                            </Grid>
+                        </StackPanel>
+
+                        <!-- 4 TextBox в 2 колонки -->
+                        <Grid Margin="0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Левый столбец -->
+                            <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,5">
+                                <Label Content="Населенный пункт" FontSize="16" Foreground="#FF7B16B6"/>
+                                <TextBox Style="{StaticResource PrimaryTB}" Name="LocNameTB"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,5">
+                                <Label Content="Номер здания" FontSize="16" Foreground="#FF7B16B6"/>
+                                <TextBox Style="{StaticResource PrimaryTB}" Name="BldNumberTB"/>
+                            </StackPanel>
+
+                            <!-- Правый столбец -->
+                            <StackPanel Grid.Row="0" Grid.Column="2" Margin="0,5">
+                                <Label Content="Улица" FontSize="16" Foreground="#FF7B16B6"/>
+                                <TextBox Style="{StaticResource PrimaryTB}" Name="LocStreetTB"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="1" Grid.Column="2" Margin="0,5">
+                                <Label Content="Номер входа" FontSize="16" Foreground="#FF7B16B6"/>
+                                <TextBox Style="{StaticResource PrimaryTB}" Name="EntrNumberTB"/>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Кнопки под GroupBox -->
+                <StackPanel Margin="5">
+                    <UniformGrid Columns="2" Margin="0,10">
+                        <Button Content="Добавить"
+                        Name="AddOrgBtn"
+                        Style="{StaticResource PrimaryBtn}"
+                        Margin="5"
+                        Padding="15,7" 
+                        FontSize="14" />
+                        <Button Content="Изменить"
+                        Name="UpdateOrgBtn"
+                        Style="{StaticResource SuccessBtn}"
+                        Margin="5"
+                        Padding="15,7" 
+                        FontSize="14" />
+                        <Button Content="Очистить"
+                        Name="ClearTextFildsBtn"
+                        Style="{StaticResource WarningBtn}"
+                        Margin="5"
+                        Padding="15,7" 
+                        FontSize="14" Click="ClearTextFildsBtn_Click"  />
+                        <Button Content="Удалить"
+                        Name="DeleteOrgBtn"
+                        Style="{StaticResource DangerBtn}"
+                        Margin="5"
+                        Padding="15,7" 
+                        FontSize="14" />
+                    </UniformGrid>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- DataGrid -->
+        <DataGrid Grid.Row="0" Grid.Column="1"
+          Margin="5" 
+          Name="SpBldDG" 
+          AutoGenerateColumns="False" 
+          IsReadOnly="True"
+          Style="{StaticResource PrimaryDataGrid}" SelectionChanged="SpBldDG_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="№" 
+                    Binding="{Binding Number}" 
+                    Width="80"
+                    HeaderStyle="{StaticResource PrimaryDataGridColumnHeader}"
+                    ElementStyle="{StaticResource PrimaryDataGridCellText}"
+                    CellStyle="{StaticResource PrimaryDataGridCell}"/>
+                <DataGridTextColumn Header="Тип" 
+                    Binding="{Binding  BuildingType}" 
+                    Width="100"
+                    HeaderStyle="{StaticResource PrimaryDataGridColumnHeader}"
+                    ElementStyle="{StaticResource PrimaryDataGridCellText}"
+                    CellStyle="{StaticResource PrimaryDataGridCell}"/>
+                <DataGridTextColumn Header="Название" 
+                    Binding="{Binding Name}" 
+                    Width="200"
+                    HeaderStyle="{StaticResource PrimaryDataGridColumnHeader}"
+                    ElementStyle="{StaticResource PrimaryDataGridCellText}"
+                    CellStyle="{StaticResource PrimaryDataGridCell}"/>
+                <DataGridTextColumn Header="Кратко" 
+                    Binding="{Binding ShortName}" 
+                    Width="80"
+                    HeaderStyle="{StaticResource PrimaryDataGridColumnHeader}"
+                    ElementStyle="{StaticResource PrimaryDataGridCellText}"
+                    CellStyle="{StaticResource PrimaryDataGridCell}"/>
+                <DataGridTextColumn Header="Арена" 
+                    Binding="{Binding ArenaInfo}" 
+                    Width="120"
+                    HeaderStyle="{StaticResource PrimaryDataGridColumnHeader}"
+                    ElementStyle="{StaticResource PrimaryDataGridCellText}"
+                    CellStyle="{StaticResource PrimaryDataGridCell}"/>
+                <DataGridTextColumn Header="Адрес" 
+                    Binding="{Binding FullAddress}" 
+                    Width="*"
+                    HeaderStyle="{StaticResource PrimaryDataGridColumnHeader}"
+                    ElementStyle="{StaticResource PrimaryDataGridCellText}"
+                    CellStyle="{StaticResource PrimaryDataGridCell}"/>
+                <DataGridTextColumn Header="Информатор" 
+                    Binding="{Binding OrganizationName}" 
+                    Width="*"
+                    HeaderStyle="{StaticResource PrimaryDataGridColumnHeader}"
+                    ElementStyle="{StaticResource PrimaryDataGridCellText}"
+                    CellStyle="{StaticResource PrimaryDataGridCell}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

@@ -19,13 +19,13 @@ namespace AIS_Region_Sport_Buildings
     /// <summary>
     /// Логика взаимодействия для Tables.xaml
     /// </summary>
-    public partial class Tables : Window
+    public partial class OrgWindow : Window
     {
         private OrganizationService _organizationService = new OrganizationService();
         private Organization _selectedOrganization;
 
         private LocalityTypeService _localityTypeService = new LocalityTypeService();
-        public Tables()
+        public OrgWindow()
         {
             InitializeComponent();
 
@@ -249,19 +249,19 @@ namespace AIS_Region_Sport_Buildings
 
         private void OpenRefBookBtn_Click(object sender, RoutedEventArgs e)
         {
-            int cbCount = LocTypeCB.Items.Count;
+            int prevItemsCount = LocTypeCB.Items.Count;
             ReferenceBooks refBook = new ReferenceBooks(0);
-            // Подписываемся на событие закрытия формы
+            // Подписываемся на событие закрытия refBook окна
             refBook.Closed += (s, args) =>
             {
                 // Когда форма закрывается - обновляем ComboBox
                 LoadLocalityTypes();
 
-                if(cbCount == LocTypeCB.Items.Count || cbCount > LocTypeCB.Items.Count)
+                if(prevItemsCount == LocTypeCB.Items.Count || prevItemsCount > LocTypeCB.Items.Count)
                 {
                     LocTypeCB.SelectedIndex = -1;
                 }
-                else if (cbCount < LocTypeCB.Items.Count)
+                else if (prevItemsCount < LocTypeCB.Items.Count)
                 {
                     LocTypeCB.SelectedIndex = LocTypeCB.Items.Count - 1;
                 }

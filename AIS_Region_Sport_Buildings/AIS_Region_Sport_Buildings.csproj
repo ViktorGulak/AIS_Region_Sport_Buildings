@@ -113,6 +113,7 @@
     <Compile Include="Models\EventType.cs" />
     <Compile Include="Models\LocalityType.cs" />
     <Compile Include="Models\Organization.cs" />
+    <Compile Include="Models\SportBuildings.cs" />
     <Compile Include="ReferenceBooks.xaml.cs">
       <DependentUpon>ReferenceBooks.xaml</DependentUpon>
     </Compile>
@@ -124,8 +125,12 @@
     <Compile Include="Services\EventTypeService.cs" />
     <Compile Include="Services\LocalityTypeService.cs" />
     <Compile Include="Services\OrganizationService.cs" />
-    <Compile Include="Tables.xaml.cs">
-      <DependentUpon>Tables.xaml</DependentUpon>
+    <Compile Include="OrgWindow.xaml.cs">
+      <DependentUpon>OrgWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Services\SportBuildingsService.cs" />
+    <Compile Include="SpBldWindow.xaml.cs">
+      <DependentUpon>SpBldWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Types\IRefBookService.cs" />
     <Page Include="MainWindow.xaml">
@@ -160,7 +165,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Tables.xaml">
+    <Page Include="OrgWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SpBldWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
