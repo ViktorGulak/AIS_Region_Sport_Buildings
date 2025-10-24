@@ -126,7 +126,7 @@
                     </StackPanel>
 
                     <StackPanel Grid.Row="1" Grid.Column="2" Margin="0,5">
-                        <Label Content="Номер входа" FontSize="16" Foreground="#FF7B16B6"/>
+                        <Label Content="Вход" FontSize="16" Foreground="#FF7B16B6"/>
                         <TextBox Style="{StaticResource PrimaryTB}" Name="EntrNumberTB"/>
                     </StackPanel>
                 </Grid>
