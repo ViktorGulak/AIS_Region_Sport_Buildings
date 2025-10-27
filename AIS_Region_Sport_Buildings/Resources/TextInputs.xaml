@@ -42,4 +42,26 @@
         </Style.Triggers>
     </Style>
 
+    <!-- Стиль для DatePicker -->
+    <Style x:Key="PrimaryDatePicker" TargetType="DatePicker">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="#FF212121"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Padding" Value="5,8"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="#FF075790"/>
+        <Setter Property="FontFamily" Value="Verdana"/>
+        <Setter Property="MinHeight" Value="30"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderBrush" Value="#FF0d6efd"/>
+            </Trigger>
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="BorderBrush" Value="#FF0d6efd"/>
+                <Setter Property="BorderThickness" Value="2"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
 </ResourceDictionary>

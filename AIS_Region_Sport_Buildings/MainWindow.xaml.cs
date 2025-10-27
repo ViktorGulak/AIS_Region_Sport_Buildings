@@ -21,7 +21,6 @@ namespace AIS_Region_Sport_Buildings
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly string connStr = "Host=localhost;Port=5432;Database=Sports_buildings_region;Username=postgres;Password=fuhetadb";
         public MainWindow()
         {
             InitializeComponent();
@@ -40,14 +39,20 @@ namespace AIS_Region_Sport_Buildings
 
         private void OrgBtn_Click(object sender, RoutedEventArgs e)
         {
-            OrgWindow tablesWindow = new OrgWindow();
-            tablesWindow.Show();
+            OrgWindow orgWindow = new OrgWindow();
+            orgWindow.Show();
         }
 
         private void SpBldBtn_Click(object sender, RoutedEventArgs e)
         {
             SpBldWindow spBldWindow = new SpBldWindow();
             spBldWindow.Show();
+        }
+
+        private void BalanceBtn_Click(object sender, RoutedEventArgs e)
+        {
+            BalanceWindow balanceWindow = new BalanceWindow();
+            balanceWindow.Show();
         }
     }
 }

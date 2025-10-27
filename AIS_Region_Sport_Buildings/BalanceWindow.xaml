@@ -1,0 +1,160 @@
+﻿<Window x:Class="AIS_Region_Sport_Buildings.BalanceWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AIS_Region_Sport_Buildings"
+        mc:Ignorable="d"
+        Title="Балансодержатели" Height="470" Width="800">
+    <Grid Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- GroupBox -->
+            <RowDefinition Height="Auto"/>
+            <!-- Кнопки -->
+            <RowDefinition Height="*"/>
+            <!-- Запасное пространство -->
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="345"/>
+            <ColumnDefinition Width="*"/>
+            <!-- DataGrid займет всё оставшееся пространство -->
+        </Grid.ColumnDefinitions>
+
+        <!-- GroupBox с данными -->
+        <GroupBox Grid.Row="0" Grid.Column="0" Header="Данные" Margin="5" FontSize="16" Foreground="#FF7B16B6" BorderBrush="#FF7B16B6">
+            <StackPanel Margin="10">
+                <!-- Первый ComboBox -->
+                <StackPanel Margin="0,5">
+                    <Label Content="Организация-балансодержатель" FontSize="16" Foreground="#FF7B16B6"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="59*"/>
+                            <ColumnDefinition Width="256*"/>
+                            <!-- ComboBox занимает всё доступное пространство -->
+                            <ColumnDefinition Width="10"/>
+                            <!-- Отступ -->
+                            <ColumnDefinition Width="Auto"/>
+                            <!-- Кнопка по размеру контента -->
+                        </Grid.ColumnDefinitions>
+
+                        <ComboBox Name="BalanceOrgCB" 
+                              Style="{StaticResource PrimaryCB}"
+                              IsEditable="True"
+                              TextSearch.TextPath="Name" 
+                              StaysOpenOnEdit="True"
+                              IsTextSearchEnabled="True"
+                              IsTextSearchCaseSensitive="False" Grid.ColumnSpan="2" Margin="0,0,0.2,0.4"/>
+                        <Button Name="AddNewOrgBtn" Grid.Column="3" Content="+" Padding="10,5" FontSize="18" FontWeight="ExtraBold" ToolTip="Добавить новую организацию" Style="{StaticResource PrimaryBtn}" Margin="0.4,0,0.4,0.4" Click="AddNewOrgBtn_Click"/>
+                    </Grid>
+                </StackPanel>
+
+                <!-- Второй ComboBox -->
+                <StackPanel Margin="0,10">
+                    <Label Content="Сооружение на балансе" FontSize="16" Foreground="#FF7B16B6"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <!-- ComboBox занимает всё доступное пространство -->
+                            <ColumnDefinition Width="10"/>
+                            <!-- Отступ -->
+                            <ColumnDefinition Width="Auto"/>
+                            <!-- Кнопка по размеру контента -->
+                        </Grid.ColumnDefinitions>
+
+                        <ComboBox Name="BalanceBldCB" 
+                              Style="{StaticResource PrimaryCB}"
+                              IsEditable="True"
+                              TextSearch.TextPath="Name" 
+                              StaysOpenOnEdit="True"
+                              IsTextSearchEnabled="True"
+                              IsTextSearchCaseSensitive="False"/>
+                        <Button Name="AddNewSpBldBtn" Grid.Column="2" Content="+" Padding="10,5" FontSize="18" FontWeight="ExtraBold" ToolTip="Добавить новое спортивное сооружение" Style="{StaticResource PrimaryBtn}" Click="AddNewSpBldBtn_Click" />
+                    </Grid>
+                </StackPanel>
+
+                <!-- Два DatePicker в одну строку -->
+                <Grid Margin="0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Левый DatePicker -->
+                    <StackPanel Grid.Column="0" Margin="0,5">
+                        <Label Content="Дата начала" FontSize="16" Foreground="#FF7B16B6"/>
+                        <DatePicker Name="BalanceStartDP" 
+                                Style="{StaticResource PrimaryDatePicker}"/>
+                    </StackPanel>
+
+                    <!-- Правый DatePicker -->
+                    <StackPanel Grid.Column="2" Margin="0,5">
+                        <Label Content="Дата окончания" FontSize="16" Foreground="#FF7B16B6"/>
+                        <DatePicker Name="BalanceEndDP" 
+                                Style="{StaticResource PrimaryDatePicker}"/>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </GroupBox>
+
+        <!-- Кнопки под GroupBox -->
+        <StackPanel Grid.Row="1" Grid.Column="0" Margin="5">
+            <UniformGrid Columns="2" Margin="0,10">
+                <Button Content="Добавить"
+                    Name="AddBalanceBtn"
+                    Style="{StaticResource PrimaryBtn}"
+                    Margin="5"
+                    Padding="15,7" 
+                    FontSize="14" Click="AddBalanceBtn_Click" />
+                <Button Content="Изменить"
+                    Name="UpdateBalanceBtn"
+                    Style="{StaticResource SuccessBtn}"
+                    Margin="5"
+                    Padding="15,7" 
+                    FontSize="14" Click="UpdateBalanceBtn_Click" />
+                <Button Content="Очистить"
+                    Name="ClearBlcTextFieldBtn"
+                    Style="{StaticResource WarningBtn}"
+                    Margin="5"
+                    Padding="15,7" 
+                    FontSize="14" Click="ClearBlcTextFieldBtn_Click"  />
+                <Button Content="Удалить"
+                    Name="DeleteBalanceBtn"
+                    Style="{StaticResource DangerBtn}"
+                    Margin="5"
+                    Padding="15,7" 
+                    FontSize="14" Click="DeleteBalanceBtn_Click" />
+            </UniformGrid>
+        </StackPanel>
+
+        <!-- DataGrid -->
+        <DataGrid Grid.Row="0" Grid.Column="1" Grid.RowSpan="3"
+              Margin="5" 
+              Name="BalanceDG" 
+              AutoGenerateColumns="False" 
+              IsReadOnly="True"
+              Style="{StaticResource PrimaryDataGrid}" SelectionChanged="BalanceDG_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Балансодержатель" 
+                        Binding="{Binding OrganizationName}" 
+                        Width="300"
+                        HeaderStyle="{StaticResource PrimaryDataGridColumnHeader}"
+                        ElementStyle="{StaticResource PrimaryDataGridCellText}"
+                        CellStyle="{StaticResource PrimaryDataGridCell}"/>
+                <DataGridTextColumn Header="На балансе" 
+                        Binding="{Binding BuildingName}" 
+                        Width="250"
+                        HeaderStyle="{StaticResource PrimaryDataGridColumnHeader}"
+                        ElementStyle="{StaticResource PrimaryDataGridCellText}"
+                        CellStyle="{StaticResource PrimaryDataGridCell}"/>
+                <DataGridTextColumn Header="Период баланса" 
+                        Binding="{Binding BalancePeriod}" 
+                        Width="*"
+                        HeaderStyle="{StaticResource PrimaryDataGridColumnHeader}"
+                        ElementStyle="{StaticResource PrimaryDataGridCellText}"
+                        CellStyle="{StaticResource PrimaryDataGridCell}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
