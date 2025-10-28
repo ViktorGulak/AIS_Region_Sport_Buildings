@@ -111,9 +111,13 @@
     <Compile Include="BalanceWindow.xaml.cs">
       <DependentUpon>BalanceWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EvtWindow.xaml.cs">
+      <DependentUpon>EvtWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\Addresses.cs" />
     <Compile Include="Models\Balance.cs" />
     <Compile Include="Models\BuildingType.cs" />
+    <Compile Include="Models\Event.cs" />
     <Compile Include="Models\EventType.cs" />
     <Compile Include="Models\LocalityType.cs" />
     <Compile Include="Models\Organization.cs" />
@@ -127,6 +131,7 @@
     <Compile Include="Services\AddressService.cs" />
     <Compile Include="Services\BalanceService.cs" />
     <Compile Include="Services\BuildingTypeService.cs" />
+    <Compile Include="Services\EventService.cs" />
     <Compile Include="Services\EventTypeService.cs" />
     <Compile Include="Services\LocalityTypeService.cs" />
     <Compile Include="Services\OrganizationService.cs" />
@@ -139,6 +144,10 @@
     </Compile>
     <Compile Include="Types\IRefBookService.cs" />
     <Page Include="BalanceWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EvtWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

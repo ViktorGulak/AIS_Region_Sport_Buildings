@@ -37,7 +37,7 @@
         </Button>
         <Button Margin="20" Grid.Row="1" Grid.Column="1" Name="EventBtn" Content="Мероприятия" 
                 FontSize="20" 
-                Style="{StaticResource PrimaryBtn}">
+                Style="{StaticResource PrimaryBtn}" Click="EventBtn_Click">
         </Button>
         <Button Margin="20" Grid.Row="2" Grid.Column="1" Name="ReportsBtn" Content="Отчёты" 
                 FontSize="20" 

@@ -54,5 +54,11 @@ namespace AIS_Region_Sport_Buildings
             BalanceWindow balanceWindow = new BalanceWindow();
             balanceWindow.Show();
         }
+
+        private void EventBtn_Click(object sender, RoutedEventArgs e)
+        {
+            EvtWindow evtWindow = new EvtWindow();
+            evtWindow.Show();
+        }
     }
 }

@@ -1,0 +1,199 @@
+﻿<Window x:Class="AIS_Region_Sport_Buildings.EvtWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AIS_Region_Sport_Buildings"
+        mc:Ignorable="d"
+        Title="Мероприятия" Height="650" Width="1000" WindowState="Maximized">
+    <Grid Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- GroupBox -->
+            <RowDefinition Height="Auto"/>
+            <!-- Кнопки -->
+            <RowDefinition Height="*"/>
+            <!-- Запасное пространство -->
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="350"/>
+            <ColumnDefinition Width="*"/>
+            <!-- DataGrid займет всё оставшееся пространство -->
+        </Grid.ColumnDefinitions>
+
+        <!-- GroupBox с данными -->
+        <GroupBox Grid.Row="0" Grid.Column="0" Header="Данные" Margin="5" FontSize="16" Foreground="#FF7B16B6" BorderBrush="#FF7B16B6">
+            <StackPanel Margin="10">
+                <!-- Первый ComboBox -->
+                <StackPanel Margin="0,5">
+                    <Label Content="Организатор" FontSize="16" Foreground="#FF7B16B6"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <!-- ComboBox занимает всё доступное пространство -->
+                            <ColumnDefinition Width="10"/>
+                            <!-- Отступ -->
+                            <ColumnDefinition Width="Auto"/>
+                            <!-- Кнопка по размеру контента -->
+                        </Grid.ColumnDefinitions>
+
+                        <ComboBox Name="EvtOrganaizerCB" 
+                              Style="{StaticResource PrimaryCB}"
+                              IsEditable="True"
+                              TextSearch.TextPath="OrganizationName" 
+                              StaysOpenOnEdit="True"
+                              IsTextSearchEnabled="True"
+                              IsTextSearchCaseSensitive="False" SelectionChanged="EvtOrganaizerCB_SelectionChanged"/>
+                        <Button Name="AddNewOrganaizerBtn" Grid.Column="2" Content="+" Padding="10,5" FontSize="18" FontWeight="ExtraBold" ToolTip="Добавить новый тип" Style="{StaticResource PrimaryBtn}" Click="AddNewOrganaizerBtn_Click"/>
+                    </Grid>
+                </StackPanel>
+
+                <!-- Второй ComboBox -->
+                <StackPanel Margin="0,10">
+                    <Label Content="Тип мероприятия" FontSize="16" Foreground="#FF7B16B6"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <!-- ComboBox занимает всё доступное пространство -->
+                            <ColumnDefinition Width="10"/>
+                            <!-- Отступ -->
+                            <ColumnDefinition Width="Auto"/>
+                            <!-- Кнопка по размеру контента -->
+                        </Grid.ColumnDefinitions>
+
+                        <ComboBox Name="EvtTypeCB" 
+                              Style="{StaticResource PrimaryCB}"
+                              IsEditable="True"
+                              TextSearch.TextPath="Title" 
+                              StaysOpenOnEdit="True"
+                              IsTextSearchEnabled="True"
+                              IsTextSearchCaseSensitive="False"/>
+                        <Button Name="AddNewEvtTypeBtn" Grid.Column="2" Content="+" Padding="10,5" FontSize="18" FontWeight="ExtraBold" ToolTip="Добавить новую категорию" Style="{StaticResource PrimaryBtn}" Click="AddNewEvtTypeBtn_Click"/>
+                    </Grid>
+                </StackPanel>
+
+                <StackPanel Margin="0,10">
+                    <Label Content="Место проведения" FontSize="16" Foreground="#FF7B16B6"/>
+                    <TextBox Style="{StaticResource PrimaryTB}" Name="EvtPlaceTB" IsReadOnly="True" ToolTip="Изменить место проведения возможно только в балансе"/>
+                </StackPanel>
+                <!-- Первый TextBox -->
+                <StackPanel Margin="0,10">
+                    <Label Content="Название мероприятия" FontSize="16" Foreground="#FF7B16B6"/>
+                    <TextBox Style="{StaticResource PrimaryTB}" Name="EvtTitleTB"/>
+                </StackPanel>
+
+                <!-- Второй TextBox -->
+                <StackPanel Margin="0,10">
+                    <Label Content="Количество посетителей" FontSize="16" Foreground="#FF7B16B6"/>
+                    <TextBox Style="{StaticResource PrimaryTB}" Name="EvtVisitorsCountTB" />
+                </StackPanel>
+
+                <!-- Два DatePicker в одну строку -->
+                <Grid Margin="0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Левый DatePicker -->
+                    <StackPanel Grid.Column="0" Margin="0,5">
+                        <Label Content="Дата начала" FontSize="16" Foreground="#FF7B16B6"/>
+                        <DatePicker Name="EvtStartDP" 
+                                FontSize="14" 
+                                Padding="5,8"
+                                MinHeight="30"
+                                FontFamily="Verdana"/>
+                    </StackPanel>
+
+                    <!-- Правый DatePicker -->
+                    <StackPanel Grid.Column="2" Margin="0,5">
+                        <Label Content="Дата окончания" FontSize="16" Foreground="#FF7B16B6"/>
+                        <DatePicker Name="EvtEndDP" 
+                                FontSize="14" 
+                                Padding="5,8"
+                                MinHeight="30"
+                                FontFamily="Verdana"/>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </GroupBox>
+
+        <!-- Кнопки под GroupBox -->
+        <StackPanel Grid.Row="1" Grid.Column="0" Margin="5">
+            <UniformGrid Columns="2" Margin="0,10">
+                <Button Content="Добавить"
+                    Name="EvtAddBtn"
+                    Style="{StaticResource PrimaryBtn}"
+                    Margin="5"
+                    Padding="15,7" 
+                    FontSize="14" Click="EvtAddBtn_Click"/>
+                <Button Content="Изменить"
+                    Name="EvtUpdateBtn"
+                    Style="{StaticResource SuccessBtn}"
+                    Margin="5"
+                    Padding="15,7" 
+                    FontSize="14" Click="EvtUpdateBtn_Click"/>
+                <Button Content="Очистить"
+                    Name="EvtClearBtn"
+                    Style="{StaticResource WarningBtn}"
+                    Margin="5"
+                    Padding="15,7" 
+                    FontSize="14" Click="EvtClearBtn_Click" />
+                <Button Content="Удалить"
+                    Name="EvtDeleteBtn"
+                    Style="{StaticResource DangerBtn}"
+                    Margin="5"
+                    Padding="15,7" 
+                    FontSize="14" Click="EvtDeleteBtn_Click"/>
+            </UniformGrid>
+        </StackPanel>
+
+        <!-- DataGrid с 5 столбцами -->
+        <DataGrid Grid.Row="0" Grid.Column="1" Grid.RowSpan="3"
+              Margin="5" 
+              Name="EventDG" 
+              AutoGenerateColumns="False" 
+              IsReadOnly="True"
+              Style="{StaticResource PrimaryDataGrid}" SelectionChanged="EventDG_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Тип" 
+                        Binding="{Binding EventType}" 
+                        Width="130"
+                        HeaderStyle="{StaticResource PrimaryDataGridColumnHeader}"
+                        ElementStyle="{StaticResource PrimaryDataGridCellText}"
+                        CellStyle="{StaticResource PrimaryDataGridCell}"/>
+                <DataGridTextColumn Header="Название" 
+                        Binding="{Binding Title}" 
+                        Width="150"
+                        HeaderStyle="{StaticResource PrimaryDataGridColumnHeader}"
+                        ElementStyle="{StaticResource PrimaryDataGridCellText}"
+                        CellStyle="{StaticResource PrimaryDataGridCell}"/>
+                <DataGridTextColumn Header="Кол-во посетителей" 
+                        Binding="{Binding VisitorsCount}" 
+                        Width="180"
+                        HeaderStyle="{StaticResource PrimaryDataGridColumnHeader}"
+                        ElementStyle="{StaticResource PrimaryDataGridCellText}"
+                        CellStyle="{StaticResource PrimaryDataGridCell}"/>
+                <DataGridTextColumn Header="Период проведения" 
+                        Binding="{Binding EventPeriod}" 
+                        Width="180"
+                        HeaderStyle="{StaticResource PrimaryDataGridColumnHeader}"
+                        ElementStyle="{StaticResource PrimaryDataGridCellText}"
+                        CellStyle="{StaticResource PrimaryDataGridCell}"/>
+                <DataGridTextColumn Header="Организатор" 
+                        Binding="{Binding OrganizerName}" 
+                        Width="300"
+                        HeaderStyle="{StaticResource PrimaryDataGridColumnHeader}"
+                        ElementStyle="{StaticResource PrimaryDataGridCellText}"
+                        CellStyle="{StaticResource PrimaryDataGridCell}"/>
+                <DataGridTextColumn Header="Место проведения" 
+                        Binding="{Binding BuildingName}" 
+                        Width="*"
+                        HeaderStyle="{StaticResource PrimaryDataGridColumnHeader}"
+                        ElementStyle="{StaticResource PrimaryDataGridCellText}"
+                        CellStyle="{StaticResource PrimaryDataGridCell}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
