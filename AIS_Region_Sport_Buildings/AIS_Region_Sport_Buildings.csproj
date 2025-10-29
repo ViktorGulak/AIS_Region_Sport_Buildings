@@ -121,6 +121,7 @@
     <Compile Include="Models\EventType.cs" />
     <Compile Include="Models\LocalityType.cs" />
     <Compile Include="Models\Organization.cs" />
+    <Compile Include="Models\SportBuildingReport.cs" />
     <Compile Include="Models\SportBuildings.cs" />
     <Compile Include="ReferenceBooks.xaml.cs">
       <DependentUpon>ReferenceBooks.xaml</DependentUpon>
@@ -138,6 +139,7 @@
     <Compile Include="OrgWindow.xaml.cs">
       <DependentUpon>OrgWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Services\ReportService.cs" />
     <Compile Include="Services\SportBuildingsService.cs" />
     <Compile Include="SpBldWindow.xaml.cs">
       <DependentUpon>SpBldWindow.xaml</DependentUpon>

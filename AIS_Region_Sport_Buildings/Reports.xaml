@@ -5,8 +5,272 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AIS_Region_Sport_Buildings"
         mc:Ignorable="d"
-        Title="Отчёты" Height="450" Width="800">
-    <Grid>
-        
+        Title="Отчёты" Height="500" Width="900" WindowState="Maximized">
+    <Grid Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="698*"/>
+            <ColumnDefinition Width="17*"/>
+            <ColumnDefinition Width="78*"/>
+        </Grid.ColumnDefinitions>
+        <TabControl Grid.Row="0" Name="TabMenu"
+            HorizontalAlignment="Stretch" 
+            VerticalAlignment="Stretch"
+            Margin="5,5,4.6,5.4" Grid.ColumnSpan="3">
+            <TabItem Header="Список спортивных сооружений" FontSize="14" Style="{StaticResource PrimaryTabItem}">
+                <Grid Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="300"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Текст по центру над всеми элементами -->
+                    <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                   Text="На заданную дату список спортивных сооружений заданного типа" 
+                   FontSize="18" 
+                   FontWeight="Bold"
+                   Foreground="#FF7B16B6"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Margin="0,10,0,20"
+                   TextAlignment="Center"/>
+
+                    <!-- GroupBox -->
+                    <GroupBox Grid.Row="1" Grid.Column="0" Header="Параметры отчёта" Margin="5" FontSize="16" Foreground="#FF7B16B6" BorderBrush="#FF7B16B6">
+                        <StackPanel Margin="10">
+                            <!-- ComboBox -->
+                            <StackPanel Margin="0,5">
+                                <Label Content="Тип спортивного сооружения" Foreground="#FF7B16B6" FontSize="14"/>
+                                <ComboBox Name="BuildingTypeRepCB" 
+                                Style="{StaticResource PrimaryCB}"
+                              IsEditable="True"
+                              TextSearch.TextPath="Title" 
+                              StaysOpenOnEdit="True"
+                              IsTextSearchEnabled="True"
+                              IsTextSearchCaseSensitive="False"
+                              DisplayMemberPath="Title"
+                              SelectedValuePath="Title"/>
+                            </StackPanel>
+
+                            <!-- DatePicker -->
+                            <StackPanel Margin="0,10">
+                                <Label Content="Дата" Foreground="#FF7B16B6" FontSize="14"/>
+                                <DatePicker Name="SpBldRepDP" Style="{StaticResource PrimaryDatePicker}"/>
+                            </StackPanel>
+                            <StackPanel Margin="0,10">
+                                <TextBlock TextWrapping="Wrap">
+                                    <Run>Найдено записей:</Run>
+                                    <Run Name="QantitySpBldRepNodes">0</Run>
+                                </TextBlock>
+                            </StackPanel>
+                            <Button Content="Сформировать отчёт"
+                    Name="GenerateSpBldRepBtn"
+                    Style="{StaticResource PrimaryBtn}"
+                    Background="#6610f2"
+                    Margin="10, 20"
+                    Padding="7" 
+                    FontSize="16"
+                    Click="GenerateSpBldRepBtn_Click"/>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <!-- DataGrid -->
+                    <DataGrid Grid.Row="1" Grid.Column="1" 
+                  Margin="5" 
+                  Name="SpBldRepDG" 
+                  AutoGenerateColumns="False" 
+                  IsReadOnly="True"
+                  Style="{StaticResource PrimaryDataGrid}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Название сооружения" 
+                        Binding="{Binding BuildingName}" 
+                        Width="200"
+                        HeaderStyle="{StaticResource PrimaryDataGridColumnHeader}"
+                        ElementStyle="{StaticResource PrimaryDataGridCellText}"
+                        CellStyle="{StaticResource PrimaryDataGridCell}"/>
+                            <DataGridTextColumn Header="Краткое название" 
+                        Binding="{Binding ShortName}" 
+                        Width="100"
+                        HeaderStyle="{StaticResource PrimaryDataGridColumnHeader}"
+                        ElementStyle="{StaticResource PrimaryDataGridCellText}"
+                        CellStyle="{StaticResource PrimaryDataGridCell}"/>
+                            <DataGridTextColumn Header="Характеристика" 
+                        Binding="{Binding ArenaInfo}" 
+                        Width="180"
+                        HeaderStyle="{StaticResource PrimaryDataGridColumnHeader}"
+                        ElementStyle="{StaticResource PrimaryDataGridCellText}"
+                        CellStyle="{StaticResource PrimaryDataGridCell}"/>
+                            <DataGridTextColumn Header="Адрес" 
+                        Binding="{Binding FullAddress}" 
+                        Width="250"
+                        HeaderStyle="{StaticResource PrimaryDataGridColumnHeader}"
+                        ElementStyle="{StaticResource PrimaryDataGridCellText}"
+                        CellStyle="{StaticResource PrimaryDataGridCell}"/>
+                            <DataGridTextColumn Header="Балансодержатель" 
+                        Binding="{Binding BalanceHolder}" 
+                        Width="200"
+                        HeaderStyle="{StaticResource PrimaryDataGridColumnHeader}"
+                        ElementStyle="{StaticResource PrimaryDataGridCellText}"
+                        CellStyle="{StaticResource PrimaryDataGridCell}"/>
+                            <DataGridTextColumn Header="Дата принятия на баланс" 
+                        Binding="{Binding BalanceStartDate, StringFormat='dd.MM.yyyy'}" 
+                        Width="130"
+                        HeaderStyle="{StaticResource PrimaryDataGridColumnHeader}"
+                        ElementStyle="{StaticResource PrimaryDataGridCellText}"
+                        CellStyle="{StaticResource PrimaryDataGridCell}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+
+            <!-- Типы спортивных сооружений -->
+            <TabItem Header="Типы спортивных сооружений" FontSize="14" Style="{StaticResource PrimaryTabItem}">
+                <Grid Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Текст по центру над всеми элементами -->
+                    <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                           Text="Управление типами спортивных сооружений" 
+                           FontSize="18" 
+                           FontWeight="Bold"
+                           Foreground="#FF7B16B6"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Margin="0,10,0,20"
+                           TextAlignment="Center"/>
+
+                    <!-- GroupBox -->
+                    <GroupBox Grid.Row="1" Grid.Column="0" Header="Данные" Margin="5" FontSize="16" Foreground="#FF7B16B6" BorderBrush="#FF7B16B6">
+                        <StackPanel Margin="10">
+                            <!-- ComboBox -->
+                            <StackPanel Margin="0,5">
+                                <Label Content="Тип спортивного сооружения" Foreground="#FF7B16B6" FontSize="14"/>
+                                <ComboBox Name="SpBldCB" 
+                                      Style="{StaticResource PrimaryCB}"
+                                      IsEditable="True"
+                                      TextSearch.TextPath="Title" 
+                                      StaysOpenOnEdit="True"
+                                      IsTextSearchEnabled="True"
+                                      IsTextSearchCaseSensitive="False"/>
+                            </StackPanel>
+
+                            <!-- DatePicker -->
+                            <StackPanel Margin="0,10">
+                                <Label Content="Дата создания" Foreground="#FF7B16B6" FontSize="14"/>
+                                <DatePicker Name="SpBldDatePicker" 
+                                        FontSize="14" 
+                                        Padding="5,8"
+                                        MinHeight="30"
+                                        FontFamily="Verdana"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <!-- DataGrid -->
+                    <DataGrid Grid.Row="1" Grid.Column="1" 
+                          Margin="5" 
+                          Name="SpBldTypeDG" 
+                          AutoGenerateColumns="False" 
+                          IsReadOnly="True"
+                          Style="{StaticResource PrimaryDataGrid}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Название типа" 
+                                    Binding="{Binding Title}" 
+                                    Width="*"
+                                    HeaderStyle="{StaticResource PrimaryDataGridColumnHeader}"
+                                    ElementStyle="{StaticResource PrimaryDataGridCellText}"
+                                    CellStyle="{StaticResource PrimaryDataGridCell}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+
+            <!-- Типы проводимых мероприятий -->
+            <TabItem Header="Типы проводимых мероприятий" FontSize="14" Style="{StaticResource PrimaryTabItem}">
+                <Grid Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="235*"/>
+                        <ColumnDefinition Width="84*"/>
+                        <ColumnDefinition Width="319*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Текст по центру над всеми элементами -->
+                    <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                           Text="Управление типами проводимых мероприятий" 
+                           FontSize="18" 
+                           FontWeight="Bold"
+                           Foreground="#FF7B16B6"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Margin="0,10,0,20"
+                           TextAlignment="Center"/>
+
+                    <!-- GroupBox -->
+                    <GroupBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Header="Данные" Margin="5" FontSize="16" Foreground="#FF7B16B6" BorderBrush="#FF7B16B6">
+                        <StackPanel Margin="10">
+                            <!-- ComboBox -->
+                            <StackPanel Margin="0,5">
+                                <Label Content="Тип проводимого мероприятия" Foreground="#FF7B16B6" FontSize="14"/>
+                                <ComboBox Name="EvtTypeCB" 
+                                      Style="{StaticResource PrimaryCB}"
+                                      IsEditable="True"
+                                      TextSearch.TextPath="Title" 
+                                      StaysOpenOnEdit="True"
+                                      IsTextSearchEnabled="True"
+                                      IsTextSearchCaseSensitive="False"/>
+                            </StackPanel>
+
+                            <!-- DatePicker -->
+                            <StackPanel Margin="0,10">
+                                <Label Content="Дата создания" Foreground="#FF7B16B6" FontSize="14"/>
+                                <DatePicker Name="EvtTypeDatePicker" 
+                                        FontSize="14" 
+                                        Padding="5,8"
+                                        MinHeight="30"
+                                        FontFamily="Verdana"/>
+                            </StackPanel>
+                            <Button Content="Сформировать отчёт"
+                                Name="gh"
+                                Style="{StaticResource PrimaryBtn}"
+                                Background="#6610f2"
+                                Margin="10, 20"
+                                Padding="7" 
+                                FontSize="16"/>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <!-- DataGrid -->
+                    <DataGrid Grid.Row="1" Grid.Column="2" 
+                          Margin="5" 
+                          Name="EvtTypeDG" 
+                          AutoGenerateColumns="False" 
+                          IsReadOnly="True"
+                          Style="{StaticResource PrimaryDataGrid}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Название типа" 
+                                    Binding="{Binding Title}" 
+                                    Width="*"
+                                    HeaderStyle="{StaticResource PrimaryDataGridColumnHeader}"
+                                    ElementStyle="{StaticResource PrimaryDataGridCellText}"
+                                    CellStyle="{StaticResource PrimaryDataGridCell}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
