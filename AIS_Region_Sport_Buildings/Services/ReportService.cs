@@ -82,5 +82,86 @@ namespace AIS_Region_Sport_Buildings.Services
                 return new List<SportBuildingReport>();
             }
         }
+
+        public List<DynamicsReport> GetDynamicsReport(string buildingName, string eventType, DateTime startDate, DateTime endDate)
+        {
+            try
+            {
+                using (var connection = new NpgsqlConnection(connStr))
+                {
+                    connection.Open();
+
+                    string sql = @"
+                SELECT 
+                    CASE EXTRACT(MONTH FROM e.evt_start)
+                        WHEN 1 THEN 'Январь'
+                        WHEN 2 THEN 'Февраль'
+                        WHEN 3 THEN 'Март'
+                        WHEN 4 THEN 'Апрель'
+                        WHEN 5 THEN 'Май'
+                        WHEN 6 THEN 'Июнь'
+                        WHEN 7 THEN 'Июль'
+                        WHEN 8 THEN 'Август'
+                        WHEN 9 THEN 'Сентябрь'
+                        WHEN 10 THEN 'Октябрь'
+                        WHEN 11 THEN 'Ноябрь'
+                        WHEN 12 THEN 'Декабрь'
+                    END AS ""Month"",
+                    EXTRACT(YEAR FROM e.evt_start) AS ""Year"",
+                    COUNT(e.id) AS ""EventsCount"",
+                    SUM(e.count_visitors) AS ""TotalVisitors"",
+                    AVG(e.count_visitors) AS ""AverageVisitors""
+                FROM events e
+                JOIN balance_history bh ON e.balance_id = bh.id
+                JOIN sport_buildings sb ON bh.building_id = sb.id
+                JOIN event_type et ON e.type_id = et.id
+                WHERE sb.sb_name = @buildingName
+                  AND et.title = @eventType
+                  AND e.evt_start >= @startDate 
+                  AND e.evt_start <= @endDate
+                GROUP BY EXTRACT(MONTH FROM e.evt_start), EXTRACT(YEAR FROM e.evt_start)
+                ORDER BY EXTRACT(YEAR FROM e.evt_start), EXTRACT(MONTH FROM e.evt_start)";
+
+                    using (var command = new NpgsqlCommand(sql, connection))
+                    {
+                        command.Parameters.AddWithValue("@buildingName", buildingName);
+                        command.Parameters.AddWithValue("@eventType", eventType);
+                        command.Parameters.AddWithValue("@startDate", startDate.Date);
+                        command.Parameters.AddWithValue("@endDate", endDate.Date);
+
+                        using (var reader = command.ExecuteReader())
+                        {
+                            List<DynamicsReport> report = new List<DynamicsReport>();
+
+                            // Получаем индексы столбцов
+                            int monthIndex = reader.GetOrdinal("Month");
+                            int yearIndex = reader.GetOrdinal("Year");
+                            int eventsCountIndex = reader.GetOrdinal("EventsCount");
+                            int totalVisitorsIndex = reader.GetOrdinal("TotalVisitors");
+                            int averageVisitorsIndex = reader.GetOrdinal("AverageVisitors");
+
+                            while (reader.Read())
+                            {
+                                report.Add(new DynamicsReport
+                                {
+                                    Month = reader.GetString(monthIndex),
+                                    Year = (int)reader.GetDouble(yearIndex), // EXTRACT возвращает double
+                                    EventsCount = reader.GetInt32(eventsCountIndex),
+                                    TotalVisitors = reader.GetInt32(totalVisitorsIndex),
+                                    AverageVisitors = reader.GetDouble(averageVisitorsIndex)
+                                });
+                            }
+
+                            return report;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при формировании отчета по динамике: {ex.Message}");
+                return new List<DynamicsReport>();
+            }
+        }
     }
 }

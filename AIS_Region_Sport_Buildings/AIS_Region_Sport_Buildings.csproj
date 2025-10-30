@@ -117,6 +117,7 @@
     <Compile Include="Models\Addresses.cs" />
     <Compile Include="Models\Balance.cs" />
     <Compile Include="Models\BuildingType.cs" />
+    <Compile Include="Models\DynamicsReport.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\EventType.cs" />
     <Compile Include="Models\LocalityType.cs" />
