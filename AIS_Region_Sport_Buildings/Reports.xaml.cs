@@ -145,6 +145,29 @@ namespace AIS_Region_Sport_Buildings
             }
         }
 
-        
+        private void GenerateBlcHoldersRepBtn_Click(object sender, RoutedEventArgs e)
+        {
+            // Валидация данных
+            if (BlcHoldersRepDP.SelectedDate == null)
+            {
+                MessageBox.Show("Выберите дату");
+                return;
+            }
+
+            try
+            {
+                DateTime selectedDate = BlcHoldersRepDP.SelectedDate.Value;
+
+                List<BalanceHoldersReport> report = _reportService.GetBalanceHoldersReport(selectedDate);
+
+                BlcHoldersRepDG.ItemsSource = report;
+                QantityBlcHoldersRepNodes.Text = report.Count.ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при формировании отчета: {ex.Message}");
+                QantityBlcHoldersRepNodes.Text = "0";
+            }
+        }
     }
 }

@@ -163,5 +163,77 @@ namespace AIS_Region_Sport_Buildings.Services
                 return new List<DynamicsReport>();
             }
         }
+
+        public List<BalanceHoldersReport> GetBalanceHoldersReport(DateTime date)
+        {
+            try
+            {
+                using (var connection = new NpgsqlConnection(connStr))
+                {
+                    connection.Open();
+
+                    string sql = @"
+                SELECT 
+                    o.org_number AS ""OrgNumber"",
+                    o.org_name AS ""OrgName"",
+                    o.org_short_name AS ""OrgShortName"",
+                    o.org_phone AS ""OrgPhone"",
+                    o.org_mail AS ""OrgEmail"",
+                    COUNT(DISTINCT bh.building_id) AS ""BuildingsCount"",
+                    STRING_AGG(sb.sb_name, ', ') AS ""BuildingsList""
+                FROM organizations o
+                LEFT JOIN balance_history bh ON o.id = bh.organization_id
+                LEFT JOIN sport_buildings sb ON bh.building_id = sb.id
+                WHERE bh.date_start <= @reportDate
+                    AND (bh.date_end IS NULL OR bh.date_end >= @reportDate)
+                    AND bh.building_id IS NOT NULL
+                GROUP BY 
+                    o.id, o.org_number, o.org_name, o.org_short_name, 
+                    o.org_phone, o.org_mail
+                HAVING COUNT(DISTINCT bh.building_id) > 0
+                ORDER BY COUNT(DISTINCT bh.building_id) DESC, o.org_name";
+
+                    using (var command = new NpgsqlCommand(sql, connection))
+                    {
+                        command.Parameters.AddWithValue("@reportDate", date.Date);
+
+                        using (var reader = command.ExecuteReader())
+                        {
+                            List<BalanceHoldersReport> report = new List<BalanceHoldersReport>();
+
+                            // Получаем индексы столбцов
+                            int orgNumberIndex = reader.GetOrdinal("OrgNumber");
+                            int orgNameIndex = reader.GetOrdinal("OrgName");
+                            int orgShortNameIndex = reader.GetOrdinal("OrgShortName");
+                            int orgPhoneIndex = reader.GetOrdinal("OrgPhone");
+                            int orgEmailIndex = reader.GetOrdinal("OrgEmail");
+                            int buildingsCountIndex = reader.GetOrdinal("BuildingsCount");
+                            int buildingsListIndex = reader.GetOrdinal("BuildingsList");
+
+                            while (reader.Read())
+                            {
+                                report.Add(new BalanceHoldersReport
+                                {
+                                    OrgNumber = reader.GetString(orgNumberIndex),
+                                    OrgName = reader.GetString(orgNameIndex),
+                                    OrgShortName = reader.IsDBNull(orgShortNameIndex) ? "" : reader.GetString(orgShortNameIndex),
+                                    OrgPhone = reader.GetString(orgPhoneIndex),
+                                    OrgEmail = reader.GetString(orgEmailIndex),
+                                    BuildingsCount = reader.GetInt32(buildingsCountIndex),
+                                    BuildingsList = reader.IsDBNull(buildingsListIndex) ? "" : reader.GetString(buildingsListIndex)
+                                });
+                            }
+
+                            return report;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при формировании отчета по балансодержателям: {ex.Message}");
+                return new List<BalanceHoldersReport>();
+            }
+        }
     }
 }
